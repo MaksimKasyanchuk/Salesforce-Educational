@@ -17,6 +17,7 @@ public with sharing class CollectionsCoding {
             system.debug('Each number of employees value in range (10) of Account  -> ' + employees);
         }
 
+        // Return given List values
         return employees;
     }
 
@@ -43,6 +44,58 @@ public with sharing class CollectionsCoding {
                 system.debug('Nested List has been created and was filled -> ' + md);
             }
         }
+
+        // Return given List values
         return md;
+    }
+
+    // Create local class variable for counter
+    static public Integer COUNT = 0;
+
+    // Create a custom class for Exception
+    class NoIdsFoundException extends Exception{}
+
+    // Create an Enum for Id errors
+    enum ERRORS_ID {NO_ID_FOUND_ERROR_MESSAGE}
+
+    public static Set<Id> getAccountIds() {
+        // Declare a List of type Account, therefore add some Accounts within one statement and insert this List
+        // To have the ids of each Account contained in this List
+        List<Account> accts = new List<Account> {
+            new Account(Name='Test Account to get ID 1'),
+            new Account(Name='Test Account to get ID 2'),
+            new Account(Name='Test Account to get ID 3')
+        };
+        insert accts;   
+
+        // Declare a Set of data type ID, and assign Account Ids into this Set
+        Set<Id> ids = new Set<Id>();
+        
+        { // This block is required to implement an assignment of each Account id into the Set of type Id
+
+            // Add Account ids into the Set of type Id, while Set size has not reached the List size
+            for (Account acct : accts) {
+                while (ids.size() < accts.size()) {
+                    ids.add(acct.Id);
+                    COUNT++;
+                    break;
+                }
+            }
+        }
+
+        { // This block is required to check if Ids were added to the Set of type Id and that this Set is not empty
+
+            // Check the given Set on emptiness and throw exception if this Set is empty
+            for (Account acct : accts) {
+                if (!ids.contains(acct.Id) && ids.isEmpty()) {
+                    // Throw exception here when this Set does not contain any Account id, moreover this Set is empty
+                    throw new NoIdsFoundException(CollectionsCoding.ERRORS_ID.NO_ID_FOUND_ERROR_MESSAGE.name());
+                }
+            }
+            system.debug('Each Account ID was being added to the Set (IDS -> ' + ids + ').');
+        }
+
+        // Return given Set values
+        return ids;
     }
 }
