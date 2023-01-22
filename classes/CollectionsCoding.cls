@@ -98,4 +98,96 @@ public with sharing class CollectionsCoding {
         // Return given Set values
         return ids;
     }
+
+    public static Map<Id, Account> acctParams() {
+        // Declare a List of Accounts and initialize it in one statement
+        List<Account> accts = new List<Account> {
+            new Account(Name='Test Account for Maps 1'),
+            new Account(Name='Test Account for Maps 2'),
+            new Account(Name='Test Account for Maps 3')
+        };
+
+        // Insert accounts to assume their ids
+        insert accts;
+
+        // Declare a Map of Id as a key, and its Account as a value
+        Map<Id, Account> idAndItsAcct = new Map<Id, Account>();
+
+        {// This block is required to add the pairs to the Map, give an Id as a key, and an Account as a value
+
+            // Check that this size is greater than 0, so it is not empty
+            if (accts.size() > 0) {
+
+                // Iterate through an each account of the List, get the Id and the Account itself
+                for (Account acct : accts) {
+                    idAndItsAcct.put(Id.valueOf(acct.id), acct);
+
+                    // Make some assertions to make sure that Account ids do exist, therefore Accounts themselves too
+                    system.assert(idAndItsAcct.containsKey(Id.valueOf(acct.Id)));
+                }
+            } else {
+                // If size of this List is 0, so it is empty, then throw an error
+                throw new ListIsEmptyException(CollectionsCoding.ERRORS.LIST_IS_EMPTY_ERROR_MESSAGE.name());
+            }
+
+            system.debug('Map was being successfully managed -> ' + idAndItsAcct);
+        }
+
+        { // This block is required to retrieve all the keys of this Map
+
+            // Retrieve a set that contains all of the keys in the Map
+            Set<Id> keyss = idAndItsAcct.keySet();
+            system.debug('All keys were retrieved -> ' + keyss);
+        }
+
+        // Return a value of the Map<Id, Account>
+        return idAndItsAcct;
+    }
+
+    public static Map<String, Bot_Command__c> commands() {
+        // Declare a List of Bot Commands and initialize it in one statement
+        List<Bot_Command__c> commandList = new List<Bot_Command__c>{
+            new Bot_Command__c(Active__c=true, Name='COMPILE'),
+            new Bot_Command__c(Active__c=false, Name='TEST'),
+            new Bot_Command__c(Active__c=true, Name='RETRIEVE')
+        };
+
+        // Insert this List to retrieve an each id of the Bot Command object
+        insert commandList;
+
+        // Declare a Map, with the pair of String as a key, and Bot_Command__c object as a value
+        Map<String, Bot_Command__c> commandMap = new Map<String, Bot_Command__c>();
+
+        { // This block is required to get each Bot_Command__c object and check that each of them exists
+
+            // Iterate through an each Bot_Command__c object to retrieve its data
+            for (Bot_Command__c cmd : commandList) {
+                // Iterate through a while loop to authomatize a process of putting the each object to this Map
+                while (true) {
+                    commandMap.put('\nBot ' + COUNT + ' was managed and added to the map', cmd);
+                    COUNT++;
+                    break;
+                }
+            }
+
+            system.debug('\nAll Bots were retrieved with their params (Status, Command name, ID) -> ' + commandMap.toString());
+        }
+
+        { // This block is required to declare a Set which will be assigned with an each Bot_Command__c object Id
+
+            // Declare a Set of type Id
+            Set<Id> commandIds = new Set<Id>();
+            
+            // Iterate through an each Bot_Command__c object of this List to get its Id
+            for (Bot_Command__c cmd : commandList) {
+                // Add Bot_Command__c object Ids to the Set
+                commandIds.add(cmd.Id);
+            }
+
+            system.debug('\nId of the each Bot that was being retrieved -> ' + commandIds);
+        }
+
+        // Return a value of this Map
+        return commandMap;
+    }
 }
