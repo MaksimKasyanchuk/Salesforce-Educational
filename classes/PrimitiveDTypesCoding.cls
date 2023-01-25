@@ -90,8 +90,14 @@ public with sharing class PrimitiveDTypesCoding {
         return studNames;
     }
 
+    // Create a custom class for Exception
+    class NumberLimitException extends Exception{}
+
     // Create an enum class to handle the messages
     enum Messages {NUMBER_IS_POSITIVE, NUMBER_IS_NEGATIVE}
+
+    // Create an Enum class for Error messages
+    enum LimitError {NUMBER_HAS_REACHED_THE_LIMIT_ERROR}
 
     public static Decimal positiveNegativeNum(Decimal i) {
         { // This block is required to check that the number is either positive or negative
@@ -104,13 +110,24 @@ public with sharing class PrimitiveDTypesCoding {
                 // Declare a String with the result message. The type of message only depends on the condition result 
                 String positiveMessage = PrimitiveDTypesCoding.Messages.NUMBER_IS_POSITIVE.name();
                 system.debug('Number was being checked ... Result -> ' + positiveMessage); // Is positive
-            } // Condition if the number is negative
-            else if (i <= 0 && i <= -2147483647) {
+
+                // Inner condition if number is positive and reaches the limit
+                if (i >= 2147483647) {
+                    // Throw an exception if limit was reached by number
+                    throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
+                }
+            } 
+            // Condition if the number is negative
+            if (i <= 0 && i >= -2147483647) {
                 // Declare a String with the result message. The type of message only depends on the condition result 
                 String negativeMessage = PrimitiveDTypesCoding.Messages.NUMBER_IS_NEGATIVE.name();
                 system.debug('Number was being checked ... Result -> ' + negativeMessage); // Is negative
-            } else {
-                system.debug('Exiting...');
+
+                // Inner condition if number is negative and reaches the limit
+                if (i <= -2147483647) {
+                    // Throw an exception if limit was reached by number
+                    throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
+                }
             }
 
         }
