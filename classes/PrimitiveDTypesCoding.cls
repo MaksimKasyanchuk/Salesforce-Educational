@@ -120,18 +120,6 @@ public with sharing class PrimitiveDTypesCoding {
                 // Throw an exception if limit was reached by number
                 throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
             }
-            
-            // if (i <= 0 && i >= -2147483647) {
-            //     // Declare a String with the result message. The type of message only depends on the condition result 
-            //     String negativeMessage = PrimitiveDTypesCoding.Messages.NUMBER_IS_NEGATIVE.name();
-            //     system.debug('Number was being checked ... Result -> ' + negativeMessage); // Is negative
-
-            //     // Inner condition if number is negative and reaches the limit
-            //     if (i <= -2147483647) {
-            //         // Throw an exception if limit was reached by number
-            //         throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
-            //     }
-            // }
 
         }
 
