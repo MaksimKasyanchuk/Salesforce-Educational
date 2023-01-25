@@ -107,28 +107,31 @@ public with sharing class PrimitiveDTypesCoding {
 
             // Condition if the number is positive 
             if (i > 0 && i <= 2147483647) {
-                // Declare a String with the result message. The type of message only depends on the condition result 
-                String positiveMessage = PrimitiveDTypesCoding.Messages.NUMBER_IS_POSITIVE.name();
-                system.debug('Number was being checked ... Result -> ' + positiveMessage); // Is positive
-
-                // Inner condition if number is positive and reaches the limit
-                if (i >= 2147483647) {
-                    // Throw an exception if limit was reached by number
-                    throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
-                }
-            } 
+                system.debug('Number was being checked ... Result -> ' + PrimitiveDTypesCoding.Messages.NUMBER_IS_POSITIVE.name()); // Is positive
+            }
+            
             // Condition if the number is negative
             if (i <= 0 && i >= -2147483647) {
-                // Declare a String with the result message. The type of message only depends on the condition result 
-                String negativeMessage = PrimitiveDTypesCoding.Messages.NUMBER_IS_NEGATIVE.name();
-                system.debug('Number was being checked ... Result -> ' + negativeMessage); // Is negative
-
-                // Inner condition if number is negative and reaches the limit
-                if (i <= -2147483647) {
-                    // Throw an exception if limit was reached by number
-                    throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
-                }
+                system.debug('Number was being checked ... Result -> ' + PrimitiveDTypesCoding.Messages.NUMBER_IS_NEGATIVE.name()); // Is negative
             }
+
+            // Inner condition if number is positive and reaches the limit
+            if (i >= 2147483647 || i <= -2147483647) {
+                // Throw an exception if limit was reached by number
+                throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
+            }
+            
+            // if (i <= 0 && i >= -2147483647) {
+            //     // Declare a String with the result message. The type of message only depends on the condition result 
+            //     String negativeMessage = PrimitiveDTypesCoding.Messages.NUMBER_IS_NEGATIVE.name();
+            //     system.debug('Number was being checked ... Result -> ' + negativeMessage); // Is negative
+
+            //     // Inner condition if number is negative and reaches the limit
+            //     if (i <= -2147483647) {
+            //         // Throw an exception if limit was reached by number
+            //         throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
+            //     }
+            // }
 
         }
 
