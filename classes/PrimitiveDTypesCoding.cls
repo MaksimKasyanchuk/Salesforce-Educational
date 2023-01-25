@@ -31,7 +31,7 @@ public with sharing class PrimitiveDTypesCoding {
     // Create a custom class for Exception
     class AssertionFailedException extends Exception{}
 
-    // Create an enum for Error message
+    // Create an enum for Assertion messages
     enum AssertionMessages {ASSERTION_IS_FAILED_ERROR_MESSAGE, ASSERTION_IS_SUCCEEDED_MESSAGE}
     
 
@@ -88,5 +88,34 @@ public with sharing class PrimitiveDTypesCoding {
 
         // Return the value of this List
         return studNames;
+    }
+
+    // Create an enum class to handle the messages
+    enum Messages {NUMBER_IS_POSITIVE, NUMBER_IS_NEGATIVE}
+
+    public static Decimal positiveNegativeNum(Decimal i) {
+        { // This block is required to check that the number is either positive or negative
+
+            // Set a scale of this number 
+            i.setScale(0);
+
+            // Condition if the number is positive 
+            if (i > 0 && i <= 2147483647) {
+                // Declare a String with the result message. The type of message only depends on the condition result 
+                String positiveMessage = PrimitiveDTypesCoding.Messages.NUMBER_IS_POSITIVE.name();
+                system.debug('Number was being checked ... Result -> ' + positiveMessage); // Is positive
+            } // Condition if the number is negative
+            else if (i <= 0 && i <= -2147483647) {
+                // Declare a String with the result message. The type of message only depends on the condition result 
+                String negativeMessage = PrimitiveDTypesCoding.Messages.NUMBER_IS_NEGATIVE.name();
+                system.debug('Number was being checked ... Result -> ' + negativeMessage); // Is negative
+            } else {
+                system.debug('Exiting...');
+            }
+
+        }
+
+        // Return a value of this Decimal
+        return i;
     }
 }
