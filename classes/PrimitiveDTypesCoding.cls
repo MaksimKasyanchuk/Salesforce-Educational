@@ -115,7 +115,7 @@ public with sharing class PrimitiveDTypesCoding {
                 system.debug('Number was being checked ... Result -> ' + PrimitiveDTypesCoding.Messages.NUMBER_IS_NEGATIVE.name()); // Is negative
             }
 
-            // Inner condition if number is positive and reaches the limit
+            // Inner condition if number either positive or negative reaches the limit
             if (i >= 2147483647 || i <= -2147483647) {
                 // Throw an exception if limit was reached by number
                 throw new NumberLimitException(PrimitiveDTypesCoding.LimitError.NUMBER_HAS_REACHED_THE_LIMIT_ERROR.name());
