@@ -126,4 +126,45 @@ public with sharing class PrimitiveDTypesCoding {
         // Return a value of this Decimal
         return i;
     }
+
+    // Create a local variable for the count
+    static public Integer COUNT = 0;
+
+    public static Set<Id> usersId() {
+        // Declare a Set of Ids
+        Set<Id> ids = new Set<Id>();
+
+        // Declare an Account variable, and initialize it in one statement
+        List<Account> users = new List<Account> {
+            new Account(Name='User 1 test', Phone='111-11-11'),
+            new Account(Name='User 2 test', Phone='222-22-22'),
+            new Account(Name='User 3 test', Phone='333-33-33')
+        };
+
+        upsert users;
+
+        { // This block is required to initialize this Set of Ids with the Account ids explicitly.
+
+            // Declare an Id variable, to assign users' ids into it
+            Id id;
+
+            // Iterate through an each Account user
+            for (Account user : users) {
+                // Create a while loop to get an each user id
+                while (true) {
+                   id = user.Id;
+                   
+                   // Add each id to the Set
+                   ids.add(id);
+                   COUNT++;
+                   break;
+                }
+            }
+    
+            system.debug('Each user id was being retrieved... -> ' + ids);
+        }
+
+        // Return this Set values
+        return ids;
+    }
 }
