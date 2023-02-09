@@ -167,4 +167,21 @@ public with sharing class PrimitiveDTypesCoding {
         // Return this Set values
         return ids;
     }
+
+    public static Object assistance(String assistantName) {
+        // Define variable with the Object type
+        Object assistant = new Contact();
+        // Define variable for Contact and reference the instance of the Object
+        Contact con = (Contact) assistant;
+
+        { // This block is required to initialize an AssistantName of Contact
+            con.AssistantName = assistantName;
+            
+            // Set an upper case for the AssistantName
+            String toUpper = con.AssistantName.toUpperCase();
+
+            system.debug(toUpper);
+        }
+        return con;
+    }
 }
