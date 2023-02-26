@@ -28,10 +28,18 @@ public with sharing class ControlFlowStatementsCoding {
     }
 
     // Declare an enum for the Exception handling
-    enum Errors {OUT_OF_BOUNDS_ERROR}
+    public enum Errors {OUT_OF_BOUNDS_ERROR, NO_SUCH_CONTACT_OR_ACCOUNT_ERROR, UNKNOWN_SEASON}
 
-    // Create a boilerplate class for a custom Exception
+    // Declare an enum for the Switch/case handling
+    public enum Seasons {WINTER, SPRING, SUMMER, AUTUMN}
+    
+    // Declare an enum to handle all properties for the Seasons enum
+    public enum Properties {BOOTS, SANDALS, SNEAKERS, GORETEX_SNEAKERS, BOLD_FEET}
+
+    // Create the boilerplate classes for the custom Exceptions
     public class OutOfBoundsException extends Exception {}
+    public class NoAccountOrContactExistsException extends Exception {}
+    public class UnknownSeasonException extends Exception {}
 
 
     // Switch/case statements example
@@ -60,5 +68,53 @@ public with sharing class ControlFlowStatementsCoding {
 
         // Return the i value
         return i;
+    }
+
+    public static SObject sObjectSwitch(SObject sobj) {
+        // Implement switch control flow
+        switch on sobj {
+            when Account a {
+                system.debug('Account -> ' + a);
+            }
+            when Contact c {
+                system.debug('Contact -> ' + c);
+            }
+            when null {
+                system.debug('Bad Data');
+            }
+            when else {
+                throw new NoAccountOrContactExistsException(ControlFlowStatementsCoding.Errors.NO_SUCH_CONTACT_OR_ACCOUNT_ERROR.name());
+            }
+        }
+
+        // Return a value of the sobj variable
+        return sobj;
+    }
+
+    public static void enumSwitch() {
+        // Create a reference on the season
+        Seasons season = Seasons.SPRING;
+
+        // Implement switch control flow
+        switch on season {
+            when WINTER {
+                system.debug('Wear: ' + ControlFlowStatementsCoding.Properties.BOOTS);
+            }
+            when SPRING {
+                system.debug('Wear: ' + ControlFlowStatementsCoding.Properties.SNEAKERS);
+            }
+            when SUMMER {
+                system.debug('Wear: ' + ControlFlowStatementsCoding.Properties.SANDALS);
+            }
+            when AUTUMN {
+                system.debug('Wear: ' + ControlFlowStatementsCoding.Properties.GORETEX_SNEAKERS);
+            }
+            when null {
+                system.debug('Invalid Season');
+            }
+            when else {
+                throw new UnknownSeasonException(ControlFlowStatementsCoding.Errors.UNKNOWN_SEASON.name());
+            }
+        }
     }
 }
