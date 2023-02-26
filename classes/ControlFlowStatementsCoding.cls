@@ -168,7 +168,8 @@ public with sharing class ControlFlowStatementsCoding {
                 oppList.add(new Opportunity(AccountId=acct.Id));
                 // Implement for List loop
                 for (Opportunity opp : oppList) {
-                    system.debug(opp);
+                    // Output an AccountId of each Opportunity
+                    system.debug(opp.AccountId);
                 }
             }
         }
