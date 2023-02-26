@@ -117,4 +117,60 @@ public with sharing class ControlFlowStatementsCoding {
             }
         }
     }
+
+    // Do-while Loops
+    public static void launch() {
+        // Define a Boolean type variable for launch preference
+        Boolean isLaunched = false;
+        // Implement do-while loop
+        do {
+            // Change the value of isLaunched variable to true and debug it, while the value of isLaunched is false
+            isLaunched = true;
+            system.debug('Launch -> ' + isLaunched);
+        } while (isLaunched == false);      
+    }
+
+    public static void counter() {
+        // Define an Integer type variable for the counter
+        Integer count = 1;
+
+        // Implement while loop
+        while (count < 11) {
+            system.debug('Count increased -> ' + count);
+            count++;
+        }
+    }
+
+
+    // traditional for loop
+    public static void overgrowth() {
+        // Implement for loop
+        for (Integer i = 0; i < 10; i++) {
+            // Create Accounts until i reaches the boundries
+            Account acct = new Account(Name='Account in for Loop: ' + i);
+            system.debug('Overgrowth of Account: \n' + acct);
+        }
+    }
+
+    // List or Set iteration for loops
+    public static void opps() {
+        // Define an Opportinity List
+        Opportunity[] oppList = new Opportunity[]{};
+
+        // Define a List of Accounts, get ID of each Account
+        List<Account> accts = new List<Account>([SELECT Id, Name FROM Account]);
+
+        // Implement for List loop
+        for (Account acct : accts) {
+            // Implement while loop, to control the size exchange
+            while (oppList.size() < 5) {
+                // Add an Opportunity to the oppList, also give a value for the AccountId field as an Account Id  
+                oppList.add(new Opportunity(AccountId=acct.Id));
+                // Implement for List loop
+                for (Opportunity opp : oppList) {
+                    system.debug(opp);
+                }
+            }
+        }
+    } 
 }
