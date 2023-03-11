@@ -16,6 +16,8 @@ public with sharing class ClassesCoding { // Outer (top-level) class
         String engine, model, mass, speed;
         Decimal price;
         
+        public Car() {}
+
         // Create a Constructor for this inner class
         public Car(String en, String mod, String ms, String sp, Decimal prc) {
             // Use this keyword, to have an access to the instance variables
@@ -44,6 +46,8 @@ public with sharing class ClassesCoding { // Outer (top-level) class
     public class ShippAddress {
         // Define inner class variables (objects)
         String shippStreet, shippCity, shippState, shippPostalCode, shippCountry;
+
+        public ShippAddress() {}
 
         // Create the Constructor for this inner class
         public ShippAddress(String shSt, String shCi, String shSta, String shPC, String shCo) {
@@ -127,6 +131,9 @@ public with sharing class ClassesCoding { // Outer (top-level) class
         // Create params for the customer
         String customerId, customerBillingCity, customerLastName;
         Integer customerPayCheck, customerCredit, customerQueue;
+
+        public Customers() {}
+
         // Create a constructor for the customer
         public Customers(String cusId, String cusBillCt, String cusLN, Integer cusPCH, Integer cusCred, Integer cusQ) {
             this.customerId = cusID;
@@ -150,6 +157,9 @@ public with sharing class ClassesCoding { // Outer (top-level) class
         DateTime dateOrdered;
         String ware, countrySupplier, orderId;
         Double wareCondition, warePrice;
+
+        public Order() {}
+
         // Create a constructor for the order
         public Order(DateTime dOrd, String wr, String countSupp, String ordId, Double wrCond, Double wrPrc) {
             this.dateOrdered = dOrd;
@@ -158,6 +168,37 @@ public with sharing class ClassesCoding { // Outer (top-level) class
             this.orderId = ordId;
             this.wareCondition = wrCond;
             this.warePrice = wrPrc;
+        }
+    }
+
+    public static UserInitials initials(String userPassword, String userLogin, String userEmail,
+    Integer userPolicyCode, Integer userVerificationCode, Integer userPostalCode) 
+    {
+        List<String> argsListStr = new List<String>();
+        List<Integer> argsListInt = new List<Integer>();
+
+        argsListStr.add(userPassword);
+        argsListStr.add(userLogin);
+        argsListStr.add(userEmail);
+        
+        argsListInt.add(userPolicyCode);
+        argsListInt.add(userVerificationCode);
+        argsListInt.add(userPostalCode);
+
+        UserInitials init = new UserInitials(argsListStr, argsListInt);
+
+        return init;
+    }
+
+    public class UserInitials  {
+        protected List<String> userArgsStr;
+        protected List<Integer> userArgsInt;
+
+        private UserInitials() {}
+
+        private UserInitials(List<String> argsListStr, List<Integer> argsListInt){
+            this.userArgsStr = (List<String>) argsListStr;
+            this.userArgsInt = (List<Integer>) argsListInt;
         }
     }
 
