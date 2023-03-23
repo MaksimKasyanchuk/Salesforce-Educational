@@ -1,5 +1,65 @@
 public with sharing class ClassesCoding { // Outer (top-level) class
 
+    // Abstract example
+    public abstract class Name {
+        public abstract String myName(String name);
+    }
+
+    public class GetName extends Name {
+        public override String myName(String name) {
+            System.debug(name);
+            return name;
+        }
+    }
+
+    // Encapsulation example
+    public static Double calculateWinPercentage(Double percentage) {
+        return calculateProbabilityOfWinBasedOnAccount() + calculateProbabilityOfWinBasedOnPastTries();
+    }
+
+    private static Double calculateProbabilityOfWinBasedOnAccount() {
+        return 2.0;
+    }
+
+    private static Double calculateProbabilityOfWinBasedOnPastTries() {
+        return 1.0;
+    }
+
+    // Recursion example
+    public static Integer recursiveCalculator(Integer numberToCheck) {
+        System.debug('Recursive method called num = ' + numberToCheck);
+        if (numberToCheck == 0) {
+            return 1;
+        }
+        return numberToCheck * recursiveCalculator(numberToCheck -1);
+    }
+
+    // Polymorphism example using overriding
+    public virtual class Parent {
+        public virtual void display() {
+            System.debug('This is a Parent');
+        }
+    }
+
+    public class Child extends Parent {
+        public override void display() {
+            System.debug('This is a Child');
+        }
+    }
+
+    // Polymorphism example using overloading
+    public static String getName(String n){
+        return n;
+    }  
+    
+    public static String getName(String name, String secondname) {
+        return name + secondname;
+    }
+
+    public static String getName(String name, String surname, String lawname) {
+        return name + surname + lawname;
+    }
+
     // Create a handler for inner class
     public static Car carPreferences(String en, String mod, String ms, String sp, Decimal prc) {
         // Create an instance of the inner class
@@ -176,14 +236,16 @@ public with sharing class ClassesCoding { // Outer (top-level) class
     {
         List<String> argsListStr = new List<String>();
         List<Integer> argsListInt = new List<Integer>();
-
-        argsListStr.add(userPassword);
-        argsListStr.add(userLogin);
-        argsListStr.add(userEmail);
         
-        argsListInt.add(userPolicyCode);
-        argsListInt.add(userVerificationCode);
-        argsListInt.add(userPostalCode);
+        {
+            argsListStr.add(userPassword);
+            argsListStr.add(userLogin);
+            argsListStr.add(userEmail);
+            
+            argsListInt.add(userPolicyCode);
+            argsListInt.add(userVerificationCode);
+            argsListInt.add(userPostalCode);
+        }
 
         UserInitials init = new UserInitials(argsListStr, argsListInt);
 
